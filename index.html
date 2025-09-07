@@ -735,12 +735,19 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
     company: "Outpost",
     gmvStart: 7200000, // starting GMV
     fees: {
-      calcEngine: 0.027,     // 2.7% of GMV
-      filing: 0.018,         // 1.8% of GMV
-      liability: 0.003,      // 0.3% of GMV
       outpost: 0.02          // 2.0% of GMV
     }
   };
+
+    // Cost inputs – spreadsheet model
+    const COSTS = {
+      fixedPerMarket: 1000,      // F
+      variablePctGMV: 0.015,     // G
+      variablePerTx: 0.30,       // H
+      liabilityPctGMV: 0.002,    // I
+      liabilityFixedPerMarket: 500 // J
+    };
+
 
   /* =========================================================
      EDIT ME #2 — (Optional) slider ranges
@@ -780,42 +787,54 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
 
   // ---- Core compute
   function compute(){
-    const { calcEngine, filing, liability, outpost } = CONFIG.fees;
-    const gmv = Calc.gmv;
+  const gmv = Calc.gmv;
+  const atv = Math.max(1, Calc.atv);
+  const markets = Math.max(1, Math.floor(Calc.markets));
 
-    const calcEngineCost = calcEngine * gmv;
-    const filingCost = filing * gmv;
-    const competitorCost = calcEngineCost + filingCost;
+  // ---- Spreadsheet math ----
+  const transactions = Math.floor(gmv / atv); // = A / B
 
-    const liabilityCost = liability * gmv;
-    const totalWithoutOutpost = competitorCost + liabilityCost;
+  // K = F*C + G*A + H*(A/B)
+  const K = (
+    COSTS.fixedPerMarket * markets +
+    COSTS.variablePctGMV * gmv +
+    COSTS.variablePerTx * transactions
+  );
 
-    const outpostFee = outpost * gmv;
-    const outpostSavings = totalWithoutOutpost - outpostFee; // positive if Outpost cheaper
-    const savingsPct = outpostSavings / gmv;
+  // L = I*A + J*C
+  const L = (
+    COSTS.liabilityPctGMV * gmv +
+    COSTS.liabilityFixedPerMarket * markets
+  );
 
-    // Write numbers
-    setTxt("calc_engine", fmtShort(calcEngineCost));
-    setTxt("filing_costs", fmtShort(filingCost));
-    setTxt("competitor_cost", fmtShort(competitorCost));
-    setTxt("liability_cov", fmtShort(liabilityCost));
-    setTxt("total_without", "-"+fmtShort(totalWithoutOutpost));
-    setTxt("outpost_savings", (outpostSavings>=0?"+":"-")+fmtShort(Math.abs(outpostSavings)));
-
-    // Globals that show % savings (Get paid X%)
-    // Globals that show $ savings (Get paid $X.XK / $X.XM)
-    const savingsMoney = Math.max(0, outpostSavings);
-    const savingsMoneyText = fmtShort0(savingsMoney);  // e.g., $202K or $2M
-
+  // Split K: 60% calc engine, 40% filing; liability = L
+      const calcEngineCost = 0.60 * K;
+      const filingCost     = 0.40 * K;
+      const liabilityCost  = L;
     
-    setTxt("hero-pct", savingsMoneyText);
-    setTxt("value-pct", savingsMoneyText);
-    qsa(".nav-dynamic-pct,.bottom-dynamic-pct").forEach(el => el.textContent = savingsMoneyText);
+      const competitorCost = calcEngineCost + filingCost;
+      const totalWithoutOutpost = competitorCost + liabilityCost;
     
-    // Update nav CTA text
-    setHtml("nav-cta", `Get paid <span class="nav-dynamic-pct">${savingsMoneyText}</span>`);
-
-  }
+      const outpostFee = CONFIG.fees.outpost * gmv;   // 2% × GMV
+      const outpostSavings = totalWithoutOutpost - outpostFee; // positive if Outpost cheaper
+    
+      // ---- Write numbers ----
+      setTxt("calc_engine",     fmtShort(calcEngineCost));
+      setTxt("filing_costs",    fmtShort(filingCost));
+      setTxt("competitor_cost", fmtShort(competitorCost));
+      setTxt("liability_cov",   fmtShort(liabilityCost));
+      setTxt("total_without",   "-"+fmtShort(totalWithoutOutpost));
+      setTxt("outpost_savings", (outpostSavings>=0?"+":"-")+fmtShort(Math.abs(outpostSavings)));
+    
+      // Show "$ savings" in hero + CTA (rounded to K/M with no decimals)
+      const savingsMoney = Math.max(0, outpostSavings);
+      const savingsMoneyText = fmtShort0(savingsMoney);
+    
+      setTxt("hero-pct", savingsMoneyText);
+      setTxt("value-pct", savingsMoneyText);
+      qsa(".nav-dynamic-pct,.bottom-dynamic-pct").forEach(el => el.textContent = savingsMoneyText);
+      setHtml("nav-cta", `Get paid <span class="nav-dynamic-pct">${savingsMoneyText}</span>`);
+    }
 
   // ---- Handlers
     function handleSlider(field, el){

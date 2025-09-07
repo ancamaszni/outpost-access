@@ -251,6 +251,16 @@ h1{font-size:clamp(44px,7vw,84px);font-weight:900;line-height:1.06;letter-spacin
   border: 1px solid #333;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.02);
 }
+  .calculator-results{
+  max-width: 66%;
+  margin-left: auto;   /* keep it aligned to the right edge */
+}
+
+/* On stacked/mobile layout, let it use full width again */
+@media (max-width:1200px){
+  .calculator-results{ max-width: none; }
+}
+  
 .calculator-subtitle { font-size: 16px; color: var(--fg-3); margin-bottom: 28px; letter-spacing: 0; font-style: italic; line-height: 1.4; }
 .input-label { display:block; font-weight:700; margin-bottom:16px; font-size:16px; color:#C9D2DC; line-height:1.4; }
 .result-label { font-size:16px; font-weight:600; color:#E8EAEE; line-height:1.4; flex:1; padding-right:16px; }
@@ -264,6 +274,7 @@ h1{font-size:clamp(44px,7vw,84px);font-weight:900;line-height:1.06;letter-spacin
 .highlight-box-red{ background:rgba(239,68,68,.06); border-color:rgba(239,68,68,.25); }
 .highlight-box-green{ background:rgba(0,255,132,.06); border-color:rgba(0,255,132,.25); }
 .highlight-box-red .result-item,.highlight-box-green .result-item{ padding:0; border-bottom:none; margin:0; }
+.highlight-box-red .result-value{ color: var(--neg); }
 .calc-cta-bottom{ margin-top:24px; text-align:center; }
 .calc-note{ margin-top:12px; font-size:14px; color:var(--fg-3); font-style:italic; line-height:1.4; }
 
@@ -601,10 +612,13 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
               <span class="result-value" id="liability_cov">$0</span>
             </div>
 
-            <div class="result-item">
-              <span class="result-label"><strong>Total cost without Outpost</strong></span>
-              <span class="result-value" id="total_without">$0</span>
+            <div class="highlight-box-red">
+              <div class="result-item">
+                <span class="result-label"><strong>Total cost without Outpost</strong></span>
+                <span class="result-value" id="total_without">-$0</span>
+              </div>
             </div>
+
 
             <div class="highlight-box-green">
               <div class="result-item">
@@ -779,7 +793,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
     setTxt("filing_costs", fmtShort(filingCost));
     setTxt("competitor_cost", fmtShort(competitorCost));
     setTxt("liability_cov", fmtShort(liabilityCost));
-    setTxt("total_without", fmtShort(totalWithoutOutpost));
+    setTxt("total_without", "-"+fmtShort(totalWithoutOutpost));
     setTxt("outpost_savings", (outpostSavings>=0?"+":"-")+fmtShort(Math.abs(outpostSavings)));
 
     // Globals that show % savings (Get paid X%)

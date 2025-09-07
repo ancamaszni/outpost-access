@@ -358,7 +358,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
       <p class="hero-subtitle">
         <em>*Technically getting paid — this is how much cheaper we are vs. competitors for giving you more; you’re ultimately getting paid the difference.</em>
         <br/><br/>
-        Outpost partners with <span class="company">leading B2C apps</span> in Europe, APAC and the US to put indirect taxes on autopilot. We handle checkout, calculation, registrations, filings — and we become fully liable for your indirect taxes. Integrate once and forget tax. <!-- per Access brief -->
+        Outpost Access is a PSP-agnostic, SDK-like API that gives you end-to-end coverage with one transparent fee.
       </p>
       <div class="hero-buttons">
         <a href="#calculator" class="btn btn-cta-large">Calculate impact →</a>
@@ -366,7 +366,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
       </div>
       <div class="hero-callout">
         <p class="hero-callout-text">
-          <strong>Outpost Access</strong> is a PSP-agnostic, SDK-like API that gives you end-to-end coverage with one transparent fee.
+          Outpost partners with B2C merchants in Europe, APAC and the US to put indirect taxes on autopilot. We handle checkout, calculation, registrations, filings — and we become fully liable for your indirect taxes. Integrate once and forget tax.
         </p>
       </div>
     </div>
@@ -765,8 +765,18 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
     if(n>=1e3) return s+"$"+(n/1e3).toFixed(1).replace(/\.0$/,"")+"K";
     return s+currency0(n).replace("$","");
   }
-  const fmtPctWhole = p => Math.round(p*100)+"%";
 
+    function fmtShort0(v){
+    const s = v < 0 ? "-" : "";
+    const n = Math.abs(v);
+    if (n >= 1e6) return s + "$" + Math.round(n/1e6) + "M";
+    if (n >= 1e3) return s + "$" + Math.round(n/1e3) + "K";
+    return s + currency0(n).replace("$","");
+  }
+
+  const fmtPctWhole = p => Math.round(p*100)+"%";
+  
+   
   // ---- Dom helpers
   function setTxt(id,val){ const el=document.getElementById(id); if(el) el.textContent=val; }
   function setHtml(id,val){ const el=document.getElementById(id); if(el) el.innerHTML=val; }
@@ -799,7 +809,8 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
     // Globals that show % savings (Get paid X%)
     // Globals that show $ savings (Get paid $X.XK / $X.XM)
     const savingsMoney = Math.max(0, outpostSavings);
-    const savingsMoneyText = fmtShort(savingsMoney);   // e.g., $201.6K or $2.1M
+    const savingsMoneyText = fmtShort0(savingsMoney);  // e.g., $202K or $2M
+
     
     setTxt("hero-pct", savingsMoneyText);
     setTxt("value-pct", savingsMoneyText);

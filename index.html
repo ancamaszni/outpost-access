@@ -562,16 +562,19 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
             <div class="input-group">
               <label class="input-label">Average transaction value ($)</label>
               <div class="input-wrapper">
-                <input type="number" id="atv_num" min="1" step="1" value="20" oninput="handleNumber('atv', this)"/>
+                <input type="range" id="atv_num" class="range-input"/>
+                <span class="range-value" id="atv_val">$20</span>
               </div>
             </div>
-
+            
             <div class="input-group">
               <label class="input-label">Number of markets</label>
               <div class="input-wrapper">
-                <input type="number" id="markets_num" min="1" step="1" value="5" oninput="handleNumber('markets', this)"/>
+                <input type="range" id="markets_num" class="range-input"/>
+                <span class="range-value" id="markets_val">8</span>
               </div>
-            </div>
+            </div>     
+            
           </div>
         </div>
 

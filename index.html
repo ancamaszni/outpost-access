@@ -797,13 +797,17 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
     setTxt("outpost_savings", (outpostSavings>=0?"+":"-")+fmtShort(Math.abs(outpostSavings)));
 
     // Globals that show % savings (Get paid X%)
-    const pctText = fmtPctWhole(Math.max(0, savingsPct));
-    setTxt("hero-pct", pctText);
-    setTxt("value-pct", "+"+pctText);
-    qsa(".nav-dynamic-pct,.bottom-dynamic-pct").forEach(el=> el.textContent = pctText);
-
+    // Globals that show $ savings (Get paid $X.XK / $X.XM)
+    const savingsMoney = Math.max(0, outpostSavings);
+    const savingsMoneyText = fmtShort(savingsMoney);   // e.g., $201.6K or $2.1M
+    
+    setTxt("hero-pct", savingsMoneyText);
+    setTxt("value-pct", savingsMoneyText);
+    qsa(".nav-dynamic-pct,.bottom-dynamic-pct").forEach(el => el.textContent = savingsMoneyText);
+    
     // Update nav CTA text
-    setHtml("nav-cta", `Get paid <span class="nav-dynamic-pct">${pctText}</span>`);
+    setHtml("nav-cta", `Get paid <span class="nav-dynamic-pct">${savingsMoneyText}</span>`);
+
   }
 
   // ---- Handlers

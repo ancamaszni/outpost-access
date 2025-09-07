@@ -161,16 +161,31 @@ h1{font-size:clamp(44px,7vw,84px);font-weight:900;line-height:1.06;letter-spacin
   .problem-box .card-title{font-size:22px;font-weight:900;margin:14px 0 6px}
   .problem-box .points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
   .problem-box .point{display:flex;gap:12px;align-items:flex-start}
-  .problem-box .marker{
-    width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-    font-weight:900;border:1px solid #2E2E2E;background:#121212;color:var(--fg-2);line-height:1;
-  }
-  .problem-box .marker.qm{content:"?";font-size:16px}
-  .problem-box .marker.tick{
-    color: #0B0B0B;
-    background: var(--accent);
-    border-color: rgba(var(--accent-rgb),.55);
-  }
+  
+    /* ===== Markers: larger yellow ? and green ✓ ===== */
+    .problem-box .marker{
+      min-width: 30px;
+      height: 30px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      line-height: 1;
+      background: transparent;
+      border: 0;
+    }
+    
+    .problem-box .marker.qm{
+      color: var(--accent);   /* bright yellow */
+      font-size: 24px;        /* bigger ? */
+    }
+    
+    .problem-box .marker.tick{
+      color: var(--pos);      /* green check */
+      font-size: 22px;
+    }
+
+  
   .problem-box .point p{margin:0;color:var(--fg-2);font-size:18px;line-height:1.6}
 
   

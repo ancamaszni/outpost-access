@@ -591,20 +591,20 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
             <p class="calculator-subtitle">All figures shown as totals (we only display outcomes — not the math).</p>
 
             <div class="result-item">
-              <span class="result-label">Calculation engine (2.7% × GMV)</span>
+              <span class="result-label">Calculation engine</span>
               <span class="result-value" id="calc_engine">$0</span>
             </div>
             <div class="result-item">
-              <span class="result-label">Filing costs (1.8% × GMV)</span>
+              <span class="result-label">Filing costs</span>
               <span class="result-value" id="filing_costs">$0</span>
             </div>
             <div class="result-item">
-              <span class="result-label"><strong>Competitor cost</strong> (calc engine + filing)</span>
+              <span class="result-label"><strong>Competitor cost</strong>
               <span class="result-value" id="competitor_cost">$0</span>
             </div>
 
             <div class="result-item">
-              <span class="result-label">Liability coverage (0.3% × GMV)</span>
+              <span class="result-label">Liability coverage</span>
               <span class="result-value" id="liability_cov">$0</span>
             </div>
 
@@ -642,13 +642,13 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
         <div class="explanation-item">
           <h4>Competitor stack</h4>
           <p>
-            We model a typical competitor as two core components: a calculation engine at 2.7% of GMV and filing costs at 1.8% of GMV. Competitor cost is the sum of those two, and we then add 0.3% of GMV for liability coverage.
+            We model a typical competitor based on two components: calculation cost which depend on # calcs. and # API calls, and filing costs. Registration fees for competitors are not shown here - but they are included in the Outpost fees. 
           </p>
         </div>
         <div class="explanation-item">
           <h4>Outpost pricing</h4>
           <p>
-            Outpost Access is modeled at a flat 2% of GMV. Your <em>Outpost savings</em> is: (Total cost without Outpost) − (2% × GMV). We surface only the outcomes.
+            Outpost Access covers your full tax liability - so we estimated what that would cost too. With Outpost Access, you pay a flat 2% of assumed GMV. We surface only the outcomes.
           </p>
         </div>
       </div>

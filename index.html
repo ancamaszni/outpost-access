@@ -741,7 +741,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
       marketsMin: 1, marketsMax: 150, marketsStep: 1
     };
   // ---- Derived state
-  const Calc = { gmv: CONFIG.gmvStart, atv: 20, markets: 5 };
+  const Calc = { gmv: CONFIG.gmvStart, atv: 20, markets: 8 };
 
   // ---- Formatters
   const currency0 = n => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
@@ -793,14 +793,24 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
   }
 
   // ---- Handlers
-  function handleSlider(field, el){
-    const val = parseFloat(el.value);
-    if(field==="gmv"){
-      Calc.gmv = val;
-      setTxt("gmv_val", currency0(val));
+    function handleSlider(field, el){
+      const val = parseFloat(el.value);
+      if(field==="gmv"){
+        Calc.gmv = val;
+        setTxt("gmv_val", currency0(val));
+      }
+      if(field==="atv"){
+        Calc.atv = val;
+        setTxt("atv_val", "$" + val);
+      }
+      if(field==="markets"){
+        Calc.markets = val;
+        setTxt("markets_val", val);
+      }
+      compute();
     }
-    compute();
-  }
+
+    
   function handleNumber(field, el){
     const val = parseFloat(el.value||"0");
     if(field==="atv") Calc.atv = Math.max(0,val);
@@ -823,10 +833,23 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
     });
 
     // Slider config
-    const g = document.getElementById("gmv_num");
-    g.min=SLIDERS.gmvMin; g.max=SLIDERS.gmvMax; g.step=SLIDERS.gmvStep; g.value=Calc.gmv;
-    g.oninput = e => handleSlider("gmv", e.target);
-    setTxt("gmv_val", currency0(Calc.gmv));
+   // GMV slider
+      const g = document.getElementById("gmv_num");
+      g.min=SLIDERS.gmvMin; g.max=SLIDERS.gmvMax; g.step=SLIDERS.gmvStep; g.value=Calc.gmv;
+      g.oninput = e => handleSlider("gmv", e.target);
+      setTxt("gmv_val", currency0(Calc.gmv));
+      
+      // ATV slider
+      const a = document.getElementById("atv_num");
+      a.min=SLIDERS.atvMin; a.max=SLIDERS.atvMax; a.step=SLIDERS.atvStep; a.value=Calc.atv;
+      a.oninput = e => handleSlider("atv", e.target);
+      setTxt("atv_val", "$" + Calc.atv);
+      
+      // Markets slider
+      const m = document.getElementById("markets_num");
+      m.min=SLIDERS.marketsMin; m.max=SLIDERS.marketsMax; m.step=SLIDERS.marketsStep; m.value=Calc.markets;
+      m.oninput = e => handleSlider("markets", e.target);
+      setTxt("markets_val", Calc.markets);
 
     // Initial compute
     compute();

@@ -735,8 +735,11 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
   /* =========================================================
      EDIT ME #2 — (Optional) slider ranges
    ========================================================= */
-  const SLIDERS = { gmvMin: 1_000_000, gmvMax: 50_000_000, gmvStep: 50_000 };
-
+    const SLIDERS = { 
+      gmvMin: 1_000_000, gmvMax: 50_000_000, gmvStep: 50_000,
+      atvMin: 10, atvMax: 250, atvStep: 10,
+      marketsMin: 1, marketsMax: 150, marketsStep: 1
+    };
   // ---- Derived state
   const Calc = { gmv: CONFIG.gmvStart, atv: 20, markets: 5 };
 

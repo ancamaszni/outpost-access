@@ -567,7 +567,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
               <label class="input-label">Average transaction value ($)</label>
               <div class="input-wrapper">
                 <input type="range" id="atv_num" class="range-input"/>
-                <span class="range-value" id="atv_val">$20</span>
+                <span class="range-value" id="atv_val">$15</span>
               </div>
             </div>
             
@@ -575,7 +575,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
               <label class="input-label">Number of markets</label>
               <div class="input-wrapper">
                 <input type="range" id="markets_num" class="range-input"/>
-                <span class="range-value" id="markets_val">8</span>
+                <span class="range-value" id="markets_val">15</span>
               </div>
             </div>     
             
@@ -751,11 +751,11 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
    ========================================================= */
     const SLIDERS = { 
       gmvMin: 1_000_000, gmvMax: 50_000_000, gmvStep: 50_000,
-      atvMin: 10, atvMax: 250, atvStep: 10,
+      atvMin: 5, atvMax: 150, atvStep: 5,
       marketsMin: 1, marketsMax: 150, marketsStep: 1
     };
   // ---- Derived state
-  const Calc = { gmv: CONFIG.gmvStart, atv: 20, markets: 8 };
+  const Calc = { gmv: CONFIG.gmvStart, atv: 15, markets: 10 };
 
   // ---- Formatters
   const currency0 = n => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);

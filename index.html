@@ -299,6 +299,31 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
 .tick{color:var(--pos);font-weight:800}
 .cross{color:var(--neg);font-weight:800}
 
+/* Yellow highlight box around the Outpost row */
+tbody tr.outpost-row td{
+  background: rgba(var(--accent-rgb), .06);
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+
+/* Left/right borders + rounded corners */
+tbody tr.outpost-row td:first-child{
+  border-left: 2px solid var(--accent);
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+tbody tr.outpost-row td:last-child{
+  border-right: 2px solid var(--accent);
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Optional: lift it slightly */
+tbody tr.outpost-row td{
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .15);
+  font-weight: 700; /* make it pop a bit */
+}
+  
 /* ===== Footer ===== */
 .disclaimer-footer{background:var(--bg);border-top:1px solid var(--line);padding:46px 0}
 .disclaimer-content{max-width:900px;margin:0 auto;text-align:center}
@@ -349,7 +374,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
         Get paid <span class="solid-green-text" id="hero-pct">24%</span> to forget about your indirect tax for good.
       </h1>
       <p class="hero-subtitle">
-        <em>*Technically getting paid — this is how much you save with Outpost vs. competitors, all while getting more out of your indirect tax solution.</em>
+        <em>This is how much you save on average vs. competitors, with an extra - your tax liability covered!</em>
         <br/><br/>
       </p>
       <div class="hero-buttons">
@@ -358,8 +383,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
       </div>
       <div class="hero-callout">
         <p class="hero-callout-text">
-          Outpost Access puts your indirect taxes on autopilot. With Access, Outpost becomes fully liable for your sales tax. 
-          With one PSP-agnostic, SDK-like API you get Nexus monitoring, filing and remittances — and we become fully liable for your indirect taxes. Integrate once and forget tax.
+          We handle checkout, calculation, registrations and filings — and we become fully liable for your indirect taxes. Integrate once and forget tax.
         </p>
       </div>
     </div>
@@ -615,7 +639,7 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
 
             <div class="highlight-box-green">
               <div class="result-item">
-                <span class="result-label"><strong>Outpost savings</strong> (vs. 2% × GMV)</span>
+                <span class="result-label"><strong>Outpost savings</strong> </span>
                 <span class="result-value" id="outpost_savings">+0</span>
               </div>
             </div>
@@ -689,12 +713,13 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
               <td><span class="cross">✗</span> Replaces PSP</td>
               <td>N/A (takes payments)</td>
             </tr>
-            <tr>
-              <td><strong>Outpost Access</strong></td>
-              <td><span class="tick">✓</span> Full coverage</td>
-              <td><span class="tick">✓</span> Any PSP</td>
-              <td><span class="tick">✓</span> SDK-like API</td>
+            <tr class="outpost-row">
+            <td><strong>Outpost Access</strong></td>
+            <td><span class="tick">✓</span> Full coverage</td>
+            <td><span class="tick">✓</span> Any PSP</td>
+            <td><span class="tick">✓</span> SDK-like API</td>
             </tr>
+            
           </tbody>
         </table>
       </div>

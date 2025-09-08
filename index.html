@@ -306,20 +306,24 @@ td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
 .tick{color:var(--pos);font-weight:800}
 .cross{color:var(--neg);font-weight:800}
 
-/* Yellow highlight box around the Outpost row (softer + thinner) */
-tbody tr.outpost-row { border-bottom: none; } /* override row divider */
-
+/* Allow rounded corners on cells */
+.table-container table{
+  border-collapse: separate !important;
+  border-spacing: 0; /* keeps rows tight like before */
+}
+  
+/* Outpost row highlight */
 tbody tr.outpost-row td{
-  background: rgba(var(--accent-rgb), .05);            /* softer fill */
-  border-top: 1px solid rgba(var(--accent-rgb), .65);  /* thinner + softer */
+  background: rgba(var(--accent-rgb), .05);
+  border-top: 1px solid rgba(var(--accent-rgb), .65);
   border-bottom: 1px solid rgba(var(--accent-rgb), .65);
-  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .12); /* subtle glow */
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .12);
 }
 
-/* Left/right borders + corners — match table radius (16px) */
+/* rounded corners that now render (because of separate borders) */
 tbody tr.outpost-row td:first-child{
   border-left: 1px solid rgba(var(--accent-rgb), .65);
-  border-top-left-radius: 16px;
+  border-top-left-radius: 16px;   /* match table radius */
   border-bottom-left-radius: 16px;
 }
 tbody tr.outpost-row td:last-child{

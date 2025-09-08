@@ -292,36 +292,40 @@ h1{font-size:clamp(44px,7vw,84px);font-weight:900;line-height:1.06;letter-spacin
 .table-container{background:linear-gradient(135deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid rgba(var(--accent-rgb),.18);border-radius:16px;overflow:hidden}
 table{width:100%;border-collapse:collapse}
 thead{border-bottom:1px solid rgba(var(--accent-rgb),.18)}
-th { padding: 24px 28px; text-align: left; font-weight: 900; letter-spacing: 0; font-size: 13px; color: #C9D2DC; }
+th {
+  padding: 24px 28px;
+  text-align: left;
+  font-size: 16px;           /* match td size */
+  color: var(--fg);          /* same color as cells */
+  font-weight: 600;          /* or 400 if you want identical weight */
+  letter-spacing: 0;
+} 
 tbody tr{background:rgba(255,255,255,.01);border-bottom:1px solid rgba(255,255,255,.06)}
 tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
 td{padding:22px 28px;color:var(--fg);font-size:16px;line-height:1.5;}
 .tick{color:var(--pos);font-weight:800}
 .cross{color:var(--neg);font-weight:800}
 
-/* Yellow highlight box around the Outpost row */
+/* Yellow highlight box around the Outpost row (softer + thinner) */
+tbody tr.outpost-row { border-bottom: none; } /* override row divider */
+
 tbody tr.outpost-row td{
-  background: rgba(var(--accent-rgb), .06);
-  border-top: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
+  background: rgba(var(--accent-rgb), .05);            /* softer fill */
+  border-top: 1px solid rgba(var(--accent-rgb), .65);  /* thinner + softer */
+  border-bottom: 1px solid rgba(var(--accent-rgb), .65);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .12); /* subtle glow */
 }
 
-/* Left/right borders + rounded corners */
+/* Left/right borders + corners — match table radius (16px) */
 tbody tr.outpost-row td:first-child{
-  border-left: 2px solid var(--accent);
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-left: 1px solid rgba(var(--accent-rgb), .65);
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
 }
 tbody tr.outpost-row td:last-child{
-  border-right: 2px solid var(--accent);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-
-/* Optional: lift it slightly */
-tbody tr.outpost-row td{
-  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .15);
-  font-weight: 700; /* make it pop a bit */
+  border-right: 1px solid rgba(var(--accent-rgb), .65);
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
   
 /* ===== Footer ===== */
@@ -374,7 +378,7 @@ tbody tr.outpost-row td{
         Get paid <span class="solid-green-text" id="hero-pct">24%</span> to forget about your indirect tax for good.
       </h1>
       <p class="hero-subtitle">
-        <em>This is how much you save on average vs. competitors, with an extra - your tax liability covered!</em>
+        <em>This is how much you save on average vs. competitors, but with an extra benefit - your tax liability covered!</em>
         <br/><br/>
       </p>
       <div class="hero-buttons">
@@ -383,7 +387,7 @@ tbody tr.outpost-row td{
       </div>
       <div class="hero-callout">
         <p class="hero-callout-text">
-          We handle checkout, calculation, registrations and filings — and we become fully liable for your indirect taxes. Integrate once and forget tax.
+          With Outpost Access, we handle Nexus monitoring, checkout, calculation, registrations and filings — and we become fully liable for your indirect taxes. Integrate once and forget tax.
         </p>
       </div>
     </div>
@@ -395,7 +399,7 @@ tbody tr.outpost-row td{
       <div class="section-header">
         <h2 class="section-title">Global expansion shouldn’t be so difficult</h2>
         <p class="section-subtitle">
-          Expanding cross-border means complying with local indirect tax in every market, often from the first dollar sold. Tax is a maze — draining time and headcount month after month.
+          Expanding cross-border means complying with local indirect tax in every market, often from the first dollar sold. Tax is a maze — draining time and headcount.
         </p>
       </div>
 
@@ -444,7 +448,7 @@ tbody tr.outpost-row td{
       </li>
       <li class="point">
         <span class="marker tick">✓</span>
-        <p><strong>Outpost is already registered</strong> in every market/state. To expand, just sell — no forms, no wait.</p>
+        <p><strong>Outpost is already registered</strong> in every market/state. To expand, just sell — no forms, no wait time, no further action.</p>
       </li>
     </ul>
   </div>
@@ -560,8 +564,9 @@ tbody tr.outpost-row td{
     <div class="container">
       <div class="value-hero">
         <div class="value-hero-content">
-          <span>Effective savings with Outpost Access: </span>
+          <span>With Outpost Access you save </span>
           <span class="value-highlight" id="total-value"><span id="value-pct">+24%</span> vs. competitors</span>
+           <span>with no downside - if anything goes wrong, it's on us.</span>
         </div>
       </div>
     </div>
